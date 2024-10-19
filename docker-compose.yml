@@ -1,7 +1,7 @@
 services:
   nginx:
     container_name: nginx
-    image: stanislavkay/nginx
+    image: stanislavkay/skill-profi-nginx
     volumes:
       - /var/build:/var/build
       - /var/log/nginx:/var/log/nginx
