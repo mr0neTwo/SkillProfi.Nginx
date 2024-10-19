@@ -1,0 +1,55 @@
+services:
+  nginx:
+    container_name: nginx
+    image: stanislavkay/nginx
+    volumes:
+      - /var/build:/var/build
+      - /var/log/nginx:/var/log/nginx
+      - /var/ssl:/var/ssl
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      network:
+        ipv4_address: 172.20.0.2
+  
+  skill-profi-api:
+    image: stanislavkay/skill-profi-api:1.0
+    container_name: skill-profi-api-container
+    ports:
+      - "500:500"
+    environment:
+      API_HOST: "172.20.0.4"
+      API_PORT: "500"
+      DB_HOST: "172.20.0.3"
+      DB_PORT: "5432"
+      DB_NAME: "skill_profi"
+      DB_USER: "postgres"
+      DB_PASSWORD: "225567"
+    networks:
+      network:
+        ipv4_address: 172.20.0.4
+
+  postgres:
+    container_name: postgres-db
+    image: stanislavkay/postgres:13.3
+    environment:
+      PUBLIC_URL: "skill_profi"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "225567"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - /var/database:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      network:
+        ipv4_address: 172.20.0.3
+
+networks:
+  network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/16
