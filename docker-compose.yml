@@ -21,6 +21,7 @@ services:
     environment:
       API_HOST: "172.20.0.4"
       API_PORT: "500"
+      CORS_URL: "http://172.20.0.2"
       DB_HOST: "172.20.0.3"
       DB_PORT: "5432"
       DB_NAME: "skill_profi"
