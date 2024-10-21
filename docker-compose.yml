@@ -4,6 +4,7 @@ services:
     image: stanislavkay/skill-profi-nginx
     volumes:
       - /var/build:/var/build
+      - /var/images:/var/images
       - /var/log/nginx:/var/log/nginx
       - /var/ssl:/var/ssl
     ports:
@@ -21,14 +22,15 @@ services:
     environment:
       API_HOST: "172.20.0.4"
       API_PORT: "500"
-      CORS_URL: "http://172.20.0.2"
+#      CORS_URL: "http://172.20.0.2"
+      CORS_URL: "https://www.skillporfi.ru"
       DB_HOST: "172.20.0.3"
       DB_PORT: "5432"
       DB_NAME: "skill_profi"
       DB_USER: "postgres"
       DB_PASSWORD: "225567"
     volumes:
-      - /var/Images:/app/wwwroot/Images
+      - /var/images:/app/wwwroot/images
     networks:
       network:
         ipv4_address: 172.20.0.4
